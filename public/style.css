@@ -1,0 +1,139 @@
+:root {
+  --bg: #f4f6fa;
+  --card: #ffffff;
+  --accent: #2563eb;
+  --accent-dark: #1e40af;
+  --green: #16a34a;
+  --red: #dc2626;
+  --text: #1e293b;
+  --muted: #64748b;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+header h1 { font-size: 1.8rem; }
+.tagline { opacity: 0.85; margin-top: 4px; }
+
+main {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  display: grid;
+  gap: 24px;
+}
+
+h2 { font-size: 1.1rem; margin-bottom: 12px; color: var(--accent-dark); }
+
+/* Account cards */
+.accounts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.account-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.account-card .name { color: var(--muted); font-size: 0.9rem; }
+.account-card .number { color: var(--muted); font-size: 0.8rem; letter-spacing: 1px; }
+.account-card .balance { font-size: 1.6rem; font-weight: 700; margin-top: 8px; }
+
+/* Form */
+.actions, .history {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.field { margin-bottom: 12px; }
+label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 4px; }
+
+select, input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+}
+
+select:focus, input:focus { border-color: var(--accent); }
+
+button {
+  background: var(--accent);
+  color: #fff;
+
+.account-card { position: relative; }
+.delete-acc {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  color: var(--muted);
+  padding: 2px 8px;
+  font-size: 1.1rem;
+  line-height: 1;
+  border-radius: 6px;
+}
+.delete-acc:hover {
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--red);
+}
+
+footer { text-align: center; padding-bottom: 24px; }
+footer { text-align: center; padding-bottom: 24px; }
+#reset { background: transparent; color: var(--muted); font-size: 0.85rem; }
+#reset:hover { color: var(--red); background: transparent; text-decoration: underline; }
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover { background: var(--accent-dark); }
+
+footer { text-align: center; padding-bottom: 24px; }
+#reset { background: transparent; color: var(--muted); font-size: 0.85rem; }
+#reset:hover { color: var(--red); background: transparent; text-decoration: underline; }
+
+.message { margin-top: 12px; font-size: 0.9rem; min-height: 1.2em; }
+.message.success { color: var(--green); }
+.message.error { color: var(--red); }
+
+/* History */
+#history { list-style: none; }
+#history li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.92rem;
+}
+#history li .desc { color: var(--muted); }
+#history li .amount.pos { color: var(--green); font-weight: 600; }
+#history li .amount.neg { color: var(--red); font-weight: 600; }
+#history .empty { color: var(--muted); border: none; justify-content: center; }

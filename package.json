@@ -1,0 +1,14 @@
+{
+  "name": "mybank",
+  "version": "1.0.0",
+  "description": "Full-stack bank app with Express + SQLite",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "express": "^4.21.0"
+  }
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyBank</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🏦 MyBank</h1>
+    <p class="tagline">Your money, backed by a real database.</p>
+  </header>
+
+  <main>
+    <section class="accounts" id="accounts"></section>
+
+    <section class="actions">
+      <h2>Transactions</h2>
+      <form id="tx-form">
+        <div class="field">
+          <label for="tx-type">Type</label>
+          <select id="tx-type">
+            <option value="deposit">Deposit</option>
+            <option value="withdraw">Withdraw</option>
+            <option value="transfer">Transfer</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="tx-from">From account</label>
+          <select id="tx-from"></select>
+        </div>
+        <div class="field" id="to-field" hidden>
+          <label for="tx-to">To account</label>
+          <select id="tx-to"></select>
+        </div>
+        <div class="field">
+          <label for="tx-amount">Amount ($)</label>
+          <input type="number" id="tx-amount" min="0.01" step="0.01" required placeholder="0.00">
+        </div>
+        <button type="submit" id="tx-submit">Apply</button>
+      </form>
+      <p id="message" class="message"></p>
+    </section>
+
+    <section class="actions">
+      <h2>Create Account</h2>
+      <div class="field">
+        <label for="acc-name">Account name</label>
+        <input type="text" id="acc-name" placeholder="e.g. Vacation Fund">
+      </div>
+      <div class="field">
+        <label for="acc-deposit">Initial deposit ($)</label>
+        <input type="number" id="acc-deposit" min="0" step="0.01" placeholder="0.00">
+      </div>
+      <button id="add-account">Add Account</button>
+    </section>
+
+    <section class="history">
+      <h2>Transaction History</h2>
+      <ul id="history"></ul>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

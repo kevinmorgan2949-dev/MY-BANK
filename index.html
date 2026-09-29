@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color"
+          content="#071A16">
+
+    <meta name="description"
+          content="My Bank - Modern Digital Banking">
+
+    <link rel="manifest"
+          href="manifest.json">
+
+    <link rel="stylesheet"
+          href="style.css">
+
+    <title>My Bank</title>
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     LOGIN / SIGN UP
+================================================== -->
+
+<section id="authPage" class="page">
+
+    <div class="auth-container">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                MB
+            </div>
+
+            <h1>My Bank</h1>
+
+            <p>
+                Your money. Your control.
+            </p>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <div id="loginForm" class="auth-card">
+
+            <h2>Welcome back</h2>
+
+            <p class="auth-description">
+                Sign in to continue to your account.
+            </p>
+
+
+            <div class="field">
+
+                <label for="loginEmail">
+                    Email address
+                </label>
+
+                <input
+                    id="loginEmail"
+                    type="email"
+                    placeholder="name@example.com"
+                    autocomplete="email"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="loginPassword">
+                    Password
+                </label>
+
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                >
+
+            </div>
+
+
+            <button
+                id="loginBtn"
+                class="primary-btn"
+            >
+                Sign In
+            </button>
+
+
+            <p
+                id="loginMessage"
+                class="message"
+            ></p>
+
+
+            <div class="auth-switch">
+
+                <span>
+                    New to My Bank?
+                </span>
+
+                <button
+                    id="showSignupBtn"
+                    class="link-btn"
+                >
+                    Create account
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SIGN UP -->
+
+        <div
+            id="signupForm"
+            class="auth-card hidden"
+        >
+
+            <h2>Create your account</h2>
+
+            <p class="auth-description">
+                Open your digital bank account in minutes.
+            </p>
+
+
+            <div class="field">
+
+                <label for="signupName">
+                    Full name
+                </label>
+
+                <input
+                    id="signupName"
+                    type="text"
+                    placeholder="John Doe"
+                    autocomplete="name"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="signupEmail">
+                    Email address
+                </label>
+
+                <input
+                    id="signupEmail"
+                    type="email"
+                    placeholder="name@example.com"
+                    autocomplete="email"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="signupPassword">
+                    Password
+                </label>
+
+                <input
+                    id="signupPassword"
+                    type="password"
+                    placeholder="Minimum 6 characters"
+                    autocomplete="new-password"
+                >
+
+            </div>
+
+
+            <button
+                id="signupBtn"
+                class="primary-btn"
+            >
+                Create Account
+            </button>
+
+
+            <p
+                id="signupMessage"
+                class="message"
+            ></p>
+
+
+            <div class="auth-switch">
+
+                <span>
+                    Already have an account?
+                </span>
+
+                <button
+                    id="showLoginBtn"
+                    class="link-btn"
+                >
+                    Sign in
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <p class="security-note">
+            🔒 Your information is protected with secure authentication.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     DASHBOARD
+================================================== -->
+
+<section
+    id="dashboardPage"
+    class="page hidden"
+>
+
+
+    <!-- TOP HEADER -->
+
+    <header class="topbar">
+
+        <div class="profile-area">
+
+            <div class="avatar">
+                <span id="avatarLetter">
+                    U
+                </span>
+            </div>
+
+            <div>
+
+                <small>
+                    Welcome back
+                </small>
+
+                <h2 id="userName">
+                    User
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="logoutBtn"
+            class="icon-button"
+            title="Logout"
+        >
+            ⇥
+        </button>
+
+    </header>
+
+
+
+    <main class="dashboard">
+
+
+        <!-- BALANCE -->
+
+        <div class="balance-card">
+
+            <div class="balance-heading">
+
+                <span>
+                    Total balance
+                </span>
+
+                <button
+                    id="toggleBalanceBtn"
+                    class="balance-eye"
+                    title="Show or hide balance"
+                >
+                    👁
+                </button>
+
+            </div>
+
+
+            <h1 id="balance">
+                ₦0.00
+            </h1>
+
+
+            <div class="account-row">
+
+                <div>
+
+                    <small>
+                        Account number
+                    </small>
+
+                    <strong id="accountNumber">
+                        Loading...
+                    </strong>
+
+                </div>
+
+                <button
+                    class="copy-account"
+                    type="button"
+                    onclick="copyAccountNumber()"
+                >
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="section-heading">
+
+            <h2>
+                Quick actions
+            </h2>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+
+            <button
+                id="transferBtn"
+                class="quick-action"
+            >
+
+                <div class="action-icon transfer">
+                    ↑
+                </div>
+
+                <span>
+                    Transfer
+                </span>
+
+            </button>
+
+
+            <button
+                id="refreshBtn"
+                class="quick-action"
+            >
+
+                <div class="action-icon refresh">
+                    ↻
+                </div>
+
+                <span>
+                    Refresh
+                </span>
+
+            </button>
+
+
+            <button
+                class="quick-action"
+                type="button"
+                onclick="comingSoon('Payments')"
+            >
+
+                <div class="action-icon payment">
+                    ₦
+                </div>
+
+                <span>
+                    Payments
+                </span>
+
+            </button>
+
+
+            <button
+                class="quick-action"
+                type="button"
+                onclick="comingSoon('Cards')"
+            >
+
+                <div class="action-icon card">
+                    ▭
+                </div>
+
+                <span>
+                    Cards
+                </span>
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- TRANSACTION HEADER -->
+
+        <div class="section-heading transaction-heading">
+
+            <h2>
+                Recent transactions
+            </h2>
+
+            <button
+                id="refreshHistoryBtn"
+                class="text-button"
+            >
+                Refresh
+            </button>
+
+        </div>
+
+
+
+        <!-- TRANSACTIONS -->
+
+        <div id="history">
+
+            <div class="empty">
+                Loading transactions...
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- BOTTOM NAVIGATION -->
+
+    <nav class="bottom-nav">
+
+        <button class="nav-item active">
+
+            <span>
+                ⌂
+            </span>
+
+            <small>
+                Home
+            </small>
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="comingSoon('Payments')"
+        >
+
+            <span>
+                ⇄
+            </span>
+
+            <small>
+                Payments
+            </small>
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="comingSoon('Cards')"
+        >
+
+            <span>
+                ▭
+            </span>
+
+            <small>
+                Cards
+            </small>
+
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="comingSoon('Profile')"
+        >
+
+            <span>
+                ◎
+            </span>
+
+            <small>
+                Profile
+            </small>
+
+        </button>
+
+    </nav>
+
+</section>
+
+
+
+<!-- ==================================================
+     TRANSFER MODAL
+================================================== -->
+
+<div
+    id="transferModal"
+    class="modal hidden"
+>
+
+    <div class="modal-box">
+
+
+        <div class="modal-header">
+
+            <div>
+
+                <span class="modal-label">
+                    MONEY TRANSFER
+                </span>
+
+                <h2>
+                    Send money
+                </h2>
+
+            </div>
+
+
+            <button
+                id="closeTransferBtn"
+                class="close-btn"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <p class="modal-description">
+            Send demo funds to another My Bank account.
+        </p>
+
+
+        <div class="field">
+
+            <label>
+                Recipient account number
+            </label>
+
+            <input
+                id="recipientAccount"
+                type="text"
+                inputmode="numeric"
+                placeholder="10-digit account number"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Amount
+            </label>
+
+            <input
+                id="transferAmount"
+                type="number"
+                min="1"
+                step="0.01"
+                placeholder="₦0.00"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Description
+            </label>
+
+            <input
+                id="transferDescription"
+                type="text"
+                maxlength="100"
+                placeholder="What's this transfer for?"
+            >
+
+        </div>
+
+
+        <button
+            id="sendTransferBtn"
+            class="primary-btn"
+        >
+            Send money
+        </button>
+
+
+        <p
+            id="transferMessage"
+            class="message"
+        ></p>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     SUPABASE
+================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- APP -->
+
+<script src="app.js"></script>
+
+
+
+<!-- ==================================================
+     SMALL UI HELPERS
+================================================== -->
+
+<script>
+
+function comingSoon(feature) {
+
+    alert(
+        feature +
+        " is coming soon."
+    );
+
+}
+
+
+function copyAccountNumber() {
+
+    const account =
+        document.getElementById(
+            "accountNumber"
+        ).textContent.trim();
+
+
+    if (
+        !account ||
+        account === "Loading..."
+    ) {
+
+        return;
+
+    }
+
+
+    navigator.clipboard
+        .writeText(account)
+        .then(() => {
+
+            alert(
+                "Account number copied."
+            );
+
+        });
+
+}
+
+</script>
+    <!-- Your other HTML content -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+</body>
+
+</html>
