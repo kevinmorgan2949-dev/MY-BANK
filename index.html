@@ -5,22 +5,47 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <meta name="theme-color"
-          content="#071A16">
+    <meta
+        name="theme-color"
+        content="#075e54"
+    >
 
-    <meta name="description"
-          content="My Bank - Modern Digital Banking">
+    <meta
+        name="mobile-web-app-capable"
+        content="yes"
+    >
 
-    <link rel="manifest"
-          href="manifest.json">
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
 
-    <link rel="stylesheet"
-          href="style.css">
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <meta
+        name="description"
+        content="My Bank mobile banking app"
+    >
 
     <title>My Bank</title>
+
+    <link
+        rel="manifest"
+        href="manifest.json"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
 </head>
 
@@ -28,11 +53,14 @@
 <body>
 
 
-<!-- ==================================================
-     LOGIN / SIGN UP
-================================================== -->
+<!-- ==========================================
+     AUTH PAGE
+========================================== -->
 
-<section id="authPage" class="page">
+<section
+    id="authPage"
+    class="auth-page"
+>
 
     <div class="auth-container">
 
@@ -45,7 +73,7 @@
             <h1>My Bank</h1>
 
             <p>
-                Your money. Your control.
+                Simple. Secure. Banking.
             </p>
 
         </div>
@@ -53,48 +81,46 @@
 
         <!-- LOGIN -->
 
-        <div id="loginForm" class="auth-card">
+        <form
+            id="loginForm"
+            class="auth-card"
+        >
 
             <h2>Welcome back</h2>
 
-            <p class="auth-description">
-                Sign in to continue to your account.
+            <p class="auth-subtitle">
+                Sign in to your account
             </p>
 
 
-            <div class="field">
+            <label for="loginEmail">
+                Email
+            </label>
 
-                <label for="loginEmail">
-                    Email address
-                </label>
-
-                <input
-                    id="loginEmail"
-                    type="email"
-                    placeholder="name@example.com"
-                    autocomplete="email"
-                >
-
-            </div>
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+            >
 
 
-            <div class="field">
+            <label for="loginPassword">
+                Password
+            </label>
 
-                <label for="loginPassword">
-                    Password
-                </label>
-
-                <input
-                    id="loginPassword"
-                    type="password"
-                    placeholder="Enter your password"
-                    autocomplete="current-password"
-                >
-
-            </div>
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+            >
 
 
             <button
+                type="submit"
                 id="loginBtn"
                 class="primary-btn"
             >
@@ -110,11 +136,10 @@
 
             <div class="auth-switch">
 
-                <span>
-                    New to My Bank?
-                </span>
+                Don't have an account?
 
                 <button
+                    type="button"
                     id="showSignupBtn"
                     class="link-btn"
                 >
@@ -123,73 +148,66 @@
 
             </div>
 
-        </div>
+        </form>
 
 
 
         <!-- SIGN UP -->
 
-        <div
+        <form
             id="signupForm"
             class="auth-card hidden"
         >
 
-            <h2>Create your account</h2>
+            <h2>Create account</h2>
 
-            <p class="auth-description">
-                Open your digital bank account in minutes.
+            <p class="auth-subtitle">
+                Open your My Bank account
             </p>
 
 
-            <div class="field">
+            <label for="signupName">
+                Full name
+            </label>
 
-                <label for="signupName">
-                    Full name
-                </label>
-
-                <input
-                    id="signupName"
-                    type="text"
-                    placeholder="John Doe"
-                    autocomplete="name"
-                >
-
-            </div>
+            <input
+                type="text"
+                id="signupName"
+                placeholder="Enter your full name"
+                autocomplete="name"
+                required
+            >
 
 
-            <div class="field">
+            <label for="signupEmail">
+                Email
+            </label>
 
-                <label for="signupEmail">
-                    Email address
-                </label>
-
-                <input
-                    id="signupEmail"
-                    type="email"
-                    placeholder="name@example.com"
-                    autocomplete="email"
-                >
-
-            </div>
+            <input
+                type="email"
+                id="signupEmail"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+            >
 
 
-            <div class="field">
+            <label for="signupPassword">
+                Password
+            </label>
 
-                <label for="signupPassword">
-                    Password
-                </label>
-
-                <input
-                    id="signupPassword"
-                    type="password"
-                    placeholder="Minimum 6 characters"
-                    autocomplete="new-password"
-                >
-
-            </div>
+            <input
+                type="password"
+                id="signupPassword"
+                placeholder="Create a password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+            >
 
 
             <button
+                type="submit"
                 id="signupBtn"
                 class="primary-btn"
             >
@@ -205,11 +223,10 @@
 
             <div class="auth-switch">
 
-                <span>
-                    Already have an account?
-                </span>
+                Already have an account?
 
                 <button
+                    type="button"
                     id="showLoginBtn"
                     class="link-btn"
                 >
@@ -218,12 +235,7 @@
 
             </div>
 
-        </div>
-
-
-        <p class="security-note">
-            🔒 Your information is protected with secure authentication.
-        </p>
+        </form>
 
     </div>
 
@@ -231,74 +243,62 @@
 
 
 
-<!-- ==================================================
+<!-- ==========================================
      DASHBOARD
-================================================== -->
+========================================== -->
 
 <section
     id="dashboardPage"
-    class="page hidden"
+    class="dashboard-page hidden"
 >
 
 
-    <!-- TOP HEADER -->
-
     <header class="topbar">
 
-        <div class="profile-area">
+        <div>
 
-            <div class="avatar">
-                <span id="avatarLetter">
-                    U
-                </span>
-            </div>
+            <p class="welcome-small">
+                Welcome back
+            </p>
 
-            <div>
-
-                <small>
-                    Welcome back
-                </small>
-
-                <h2 id="userName">
-                    User
-                </h2>
-
-            </div>
+            <h2 id="userName">
+                My Bank User
+            </h2>
 
         </div>
 
 
         <button
             id="logoutBtn"
-            class="icon-button"
-            title="Logout"
+            class="icon-btn"
+            type="button"
         >
-            ⇥
+            Logout
         </button>
 
     </header>
 
 
 
-    <main class="dashboard">
+    <main class="dashboard-content">
 
 
         <!-- BALANCE -->
 
         <div class="balance-card">
 
-            <div class="balance-heading">
+            <div class="balance-top">
 
                 <span>
-                    Total balance
+                    Available Balance
                 </span>
 
                 <button
                     id="toggleBalanceBtn"
-                    class="balance-eye"
-                    title="Show or hide balance"
+                    type="button"
+                    class="balance-toggle"
                 >
-                    👁
+                    Hide
                 </button>
 
             </div>
@@ -309,27 +309,15 @@
             </h1>
 
 
-            <div class="account-row">
+            <div class="account-info">
 
-                <div>
+                <span>
+                    Account Number
+                </span>
 
-                    <small>
-                        Account number
-                    </small>
-
-                    <strong id="accountNumber">
-                        Loading...
-                    </strong>
-
-                </div>
-
-                <button
-                    class="copy-account"
-                    type="button"
-                    onclick="copyAccountNumber()"
-                >
-                    Copy
-                </button>
+                <strong id="accountNumber">
+                    ---------
+                </strong>
 
             </div>
 
@@ -339,140 +327,152 @@
 
         <!-- QUICK ACTIONS -->
 
-        <div class="section-heading">
+        <section class="quick-section">
 
-            <h2>
-                Quick actions
-            </h2>
+            <div class="section-heading">
 
-        </div>
+                <h3>
+                    Quick Actions
+                </h3>
 
-
-        <div class="quick-actions">
-
-
-            <button
-                id="transferBtn"
-                class="quick-action"
-            >
-
-                <div class="action-icon transfer">
-                    ↑
-                </div>
-
-                <span>
-                    Transfer
-                </span>
-
-            </button>
+            </div>
 
 
-            <button
-                id="refreshBtn"
-                class="quick-action"
-            >
-
-                <div class="action-icon refresh">
-                    ↻
-                </div>
-
-                <span>
-                    Refresh
-                </span>
-
-            </button>
+            <div class="quick-actions">
 
 
-            <button
-                class="quick-action"
-                type="button"
-                onclick="comingSoon('Payments')"
-            >
+                <button
+                    id="transferBtn"
+                    type="button"
+                    class="quick-action"
+                >
 
-                <div class="action-icon payment">
-                    ₦
-                </div>
+                    <span class="action-icon">
+                        ⇄
+                    </span>
 
-                <span>
-                    Payments
-                </span>
+                    <span>
+                        Transfer
+                    </span>
 
-            </button>
-
-
-            <button
-                class="quick-action"
-                type="button"
-                onclick="comingSoon('Cards')"
-            >
-
-                <div class="action-icon card">
-                    ▭
-                </div>
-
-                <span>
-                    Cards
-                </span>
-
-            </button>
+                </button>
 
 
-        </div>
+                <button
+                    id="refreshBtn"
+                    type="button"
+                    class="quick-action"
+                >
+
+                    <span class="action-icon">
+                        ↻
+                    </span>
+
+                    <span>
+                        Refresh
+                    </span>
+
+                </button>
 
 
+                <button
+                    type="button"
+                    class="quick-action"
+                    onclick="comingSoon('Airtime')"
+                >
 
-        <!-- TRANSACTION HEADER -->
+                    <span class="action-icon">
+                        ☎
+                    </span>
 
-        <div class="section-heading transaction-heading">
+                    <span>
+                        Airtime
+                    </span>
 
-            <h2>
-                Recent transactions
-            </h2>
+                </button>
 
-            <button
-                id="refreshHistoryBtn"
-                class="text-button"
-            >
-                Refresh
-            </button>
 
-        </div>
+                <button
+                    type="button"
+                    class="quick-action"
+                    onclick="comingSoon('Bills')"
+                >
+
+                    <span class="action-icon">
+                        ▣
+                    </span>
+
+                    <span>
+                        Bills
+                    </span>
+
+                </button>
+
+            </div>
+
+        </section>
 
 
 
         <!-- TRANSACTIONS -->
 
-        <div id="history">
+        <section class="transactions-section">
 
-            <div class="empty">
-                Loading transactions...
+            <div class="section-heading">
+
+                <h3>
+                    Recent Transactions
+                </h3>
+
+                <button
+                    id="refreshHistoryBtn"
+                    type="button"
+                    class="text-btn"
+                >
+                    Refresh
+                </button>
+
             </div>
 
-        </div>
 
+            <div
+                id="history"
+                class="transaction-list"
+            >
+
+                <div class="empty-state">
+                    No transactions yet.
+                </div>
+
+            </div>
+
+        </section>
 
     </main>
 
 
 
-    <!-- BOTTOM NAVIGATION -->
+    <!-- BOTTOM NAV -->
 
     <nav class="bottom-nav">
 
-        <button class="nav-item active">
+
+        <button
+            type="button"
+            class="nav-item active"
+        >
 
             <span>
                 ⌂
             </span>
 
-            <small>
-                Home
-            </small>
+            Home
 
         </button>
 
 
         <button
+            type="button"
             class="nav-item"
             onclick="comingSoon('Payments')"
         >
@@ -481,14 +481,13 @@
                 ⇄
             </span>
 
-            <small>
-                Payments
-            </small>
+            Payments
 
         </button>
 
 
         <button
+            type="button"
             class="nav-item"
             onclick="comingSoon('Cards')"
         >
@@ -497,25 +496,22 @@
                 ▭
             </span>
 
-            <small>
-                Cards
-            </small>
+            Cards
 
         </button>
 
 
         <button
+            type="button"
             class="nav-item"
             onclick="comingSoon('Profile')"
         >
 
             <span>
-                ◎
+                ●
             </span>
 
-            <small>
-                Profile
-            </small>
+            Profile
 
         </button>
 
@@ -525,183 +521,68 @@
 
 
 
-<!-- ==================================================
-     TRANSFER MODAL
-================================================== -->
-
-<div
-    id="transferModal"
-    class="modal hidden"
->
-
-    <div class="modal-box">
-
-
-        <div class="modal-header">
-
-            <div>
-
-                <span class="modal-label">
-                    MONEY TRANSFER
-                </span>
-
-                <h2>
-                    Send money
-                </h2>
-
-            </div>
-
-
-            <button
-                id="closeTransferBtn"
-                class="close-btn"
-            >
-                ×
-            </button>
-
-        </div>
-
-
-        <p class="modal-description">
-            Send demo funds to another My Bank account.
-        </p>
-
-
-        <div class="field">
-
-            <label>
-                Recipient account number
-            </label>
-
-            <input
-                id="recipientAccount"
-                type="text"
-                inputmode="numeric"
-                placeholder="10-digit account number"
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Amount
-            </label>
-
-            <input
-                id="transferAmount"
-                type="number"
-                min="1"
-                step="0.01"
-                placeholder="₦0.00"
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Description
-            </label>
-
-            <input
-                id="transferDescription"
-                type="text"
-                maxlength="100"
-                placeholder="What's this transfer for?"
-            >
-
-        </div>
-
-
-        <button
-            id="sendTransferBtn"
-            class="primary-btn"
-        >
-            Send money
-        </button>
-
-
-        <p
-            id="transferMessage"
-            class="message"
-        ></p>
-
-
-    </div>
-
-</div>
-
-
-
-<!-- ==================================================
+<!-- ==========================================
      SUPABASE
-================================================== -->
+========================================== -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
-<!-- APP -->
-
-<script src="app.js"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
 
 
+<!-- APP JAVASCRIPT -->
 
-<!-- ==================================================
-     SMALL UI HELPERS
-================================================== -->
+<script src="script.js"></script>
+
+
+
+<!-- ==========================================
+     SERVICE WORKER
+========================================== -->
 
 <script>
 
-function comingSoon(feature) {
+if ("serviceWorker" in navigator) {
 
-    alert(
-        feature +
-        " is coming soon."
+    window.addEventListener(
+        "load",
+        () => {
+
+            navigator.serviceWorker
+                .register("pwabuilder-sw.js")
+                .then(() => {
+
+                    console.log(
+                        "My Bank service worker registered."
+                    );
+
+                })
+                .catch(error => {
+
+                    console.error(
+                        "Service worker error:",
+                        error
+                    );
+
+                });
+
+        }
     );
 
 }
 
 
-function copyAccountNumber() {
+function comingSoon(feature) {
 
-    const account =
-        document.getElementById(
-            "accountNumber"
-        ).textContent.trim();
-
-
-    if (
-        !account ||
-        account === "Loading..."
-    ) {
-
-        return;
-
-    }
-
-
-    navigator.clipboard
-        .writeText(account)
-        .then(() => {
-
-            alert(
-                "Account number copied."
-            );
-
-        });
+    alert(
+        feature +
+        " will be available in a future version."
+    );
 
 }
 
 </script>
-    <!-- Your other HTML content -->
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="script.js"></script>
-</body>
-</html>
 
 </body>
 
