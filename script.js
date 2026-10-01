@@ -1,22 +1,22 @@
-// ==========================================
-// MY BANK — SUPABASE APP
-// ==========================================
+// =====================================================
+// MY BANK - SUPABASE CONFIGURATION
+// =====================================================
 
 const SUPABASE_URL =
     "https://kmscabqzmtxefpnzksqg.supabase.co";
 
-const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_c6Yeg0U7pi82EekTOjhcRA_iscNJta-";
+const SUPABASE_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imttc2NhYnF6bXR4ZWZwbnprc3FnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAwMDY0MzEsImV4cCI6MjEwNTU4MjQzMX0.0C8V-zMMgZFBuH6KP1MoW5-qBi21CnGqFrkFemNnWj0";
 
 const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
+    SUPABASE_KEY
 );
 
 
-// ==========================================
+// =====================================================
 // ELEMENTS
-// ==========================================
+// =====================================================
 
 const authPage = document.getElementById("authPage");
 const dashboardPage = document.getElementById("dashboardPage");
@@ -40,97 +40,53 @@ const signupMessage = document.getElementById("signupMessage");
 const showSignupBtn = document.getElementById("showSignupBtn");
 const showLoginBtn = document.getElementById("showLoginBtn");
 
-const logoutBtn = document.getElementById("logoutBtn");
-
 const userName = document.getElementById("userName");
 const balance = document.getElementById("balance");
 const accountNumber = document.getElementById("accountNumber");
 
+const logoutBtn = document.getElementById("logoutBtn");
+const toggleBalanceBtn = document.getElementById("toggleBalanceBtn");
+
+const transferBtn = document.getElementById("transferBtn");
+const refreshBtn = document.getElementById("refreshBtn");
+const refreshHistoryBtn = document.getElementById("refreshHistoryBtn");
+
 const history = document.getElementById("history");
 
-const refreshBtn = document.getElementById("refreshBtn");
-const refreshHistoryBtn =
-    document.getElementById("refreshHistoryBtn");
 
-const toggleBalanceBtn =
-    document.getElementById("toggleBalanceBtn");
-
-const transferBtn =
-    document.getElementById("transferBtn");
-
-
-// ==========================================
-// SHOW MESSAGE
-// ==========================================
-
-function setMessage(element, message, type = "") {
-
-    if (!element) return;
-
-    element.textContent = message;
-
-    element.className = "message";
-
-    if (type) {
-        element.classList.add(type);
-    }
-}
-
-
-// ==========================================
-// SHOW LOGIN
-// ==========================================
+// =====================================================
+// HELPERS
+// =====================================================
 
 function showLogin() {
+    if (loginForm) loginForm.classList.remove("hidden");
+    if (signupForm) signupForm.classList.add("hidden");
 
-    if (authPage) {
-        authPage.classList.remove("hidden");
+    if (loginMessage) {
+        loginMessage.textContent = "";
     }
 
-    if (dashboardPage) {
-        dashboardPage.classList.add("hidden");
-    }
-
-    if (loginForm) {
-        loginForm.classList.remove("hidden");
-    }
-
-    if (signupForm) {
-        signupForm.classList.add("hidden");
+    if (signupMessage) {
+        signupMessage.textContent = "";
     }
 }
 
-
-// ==========================================
-// SHOW SIGNUP
-// ==========================================
 
 function showSignup() {
+    if (loginForm) loginForm.classList.add("hidden");
+    if (signupForm) signupForm.classList.remove("hidden");
 
-    if (authPage) {
-        authPage.classList.remove("hidden");
+    if (loginMessage) {
+        loginMessage.textContent = "";
     }
 
-    if (dashboardPage) {
-        dashboardPage.classList.add("hidden");
-    }
-
-    if (loginForm) {
-        loginForm.classList.add("hidden");
-    }
-
-    if (signupForm) {
-        signupForm.classList.remove("hidden");
+    if (signupMessage) {
+        signupMessage.textContent = "";
     }
 }
 
 
-// ==========================================
-// SHOW DASHBOARD
-// ==========================================
-
 function showDashboard() {
-
     if (authPage) {
         authPage.classList.add("hidden");
     }
@@ -141,290 +97,385 @@ function showDashboard() {
 }
 
 
-// ==========================================
+function showAuth() {
+    if (dashboardPage) {
+        dashboardPage.classList.add("hidden");
+    }
+
+    if (authPage) {
+        authPage.classList.remove("hidden");
+    }
+}
+
+
+function formatMoney(amount) {
+    const number = Number(amount || 0);
+
+    return "₦" + number.toLocaleString("en-NG", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+
+function formatDate(date) {
+    return new Date(date).toLocaleString("en-NG", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+    });
+}
+
+
+function escapeHTML(text) {
+    if (text === null || text === undefined) {
+        return "";
+    }
+
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+// =====================================================
+// SWITCH LOGIN / SIGNUP
+// =====================================================
+
+if (showSignupBtn) {
+    showSignupBtn.addEventListener("click", function () {
+        showSignup();
+    });
+}
+
+
+if (showLoginBtn) {
+    showLoginBtn.addEventListener("click", function () {
+        showLogin();
+    });
+}
+
+
+// =====================================================
 // SIGN UP
-// ==========================================
+// =====================================================
 
-async function createAccount() {
+if (signupForm) {
 
-    const name = signupName.value.trim();
-    const email = signupEmail.value.trim();
-    const password = signupPassword.value;
+    signupForm.addEventListener("submit", async function (event) {
 
-    if (!name || !email || !password) {
+        event.preventDefault();
 
-        setMessage(
-            signupMessage,
-            "Please fill in all fields.",
-            "error"
-        );
+        const name = signupName.value.trim();
+        const email = signupEmail.value.trim();
+        const password = signupPassword.value;
 
-        return;
-    }
+        if (!name || !email || !password) {
+            signupMessage.textContent =
+                "Please fill in all fields.";
 
-    if (password.length < 6) {
+            return;
+        }
 
-        setMessage(
-            signupMessage,
-            "Password must be at least 6 characters.",
-            "error"
-        );
+        if (password.length < 6) {
+            signupMessage.textContent =
+                "Password must be at least 6 characters.";
 
-        return;
-    }
+            return;
+        }
 
-    signupBtn.disabled = true;
-    signupBtn.textContent = "Creating account...";
+        signupBtn.disabled = true;
+        signupBtn.textContent = "Creating account...";
+        signupMessage.textContent = "";
 
-    try {
+        try {
 
-        const { data, error } =
-            await supabaseClient.auth.signUp({
+            const { data, error } =
+                await supabaseClient.auth.signUp({
 
-                email: email,
+                    email: email,
 
-                password: password,
+                    password: password,
 
-                options: {
-                    data: {
-                        full_name: name
+                    options: {
+                        data: {
+                            full_name: name
+                        }
                     }
-                }
 
-            });
+                });
 
-        if (error) {
-            throw error;
+
+            if (error) {
+                throw error;
+            }
+
+
+            if (data.user && !data.session) {
+
+                signupMessage.textContent =
+                    "Account created! Check your email to confirm your account.";
+
+            } else {
+
+                signupMessage.textContent =
+                    "Account created successfully!";
+
+                setTimeout(function () {
+                    showDashboard();
+                    loadDashboard();
+                }, 1000);
+
+            }
+
+        } catch (error) {
+
+            console.error("Signup error:", error);
+
+            signupMessage.textContent =
+                error.message || "Unable to create account.";
+
+        } finally {
+
+            signupBtn.disabled = false;
+            signupBtn.textContent = "Create Account";
+
         }
 
-        signupName.value = "";
-        signupEmail.value = "";
-        signupPassword.value = "";
+    });
 
-        if (!data.session) {
-
-            setMessage(
-                signupMessage,
-                "Account created. Check your email to confirm your account.",
-                "success"
-            );
-
-        } else {
-
-            setMessage(
-                signupMessage,
-                "Account created successfully!",
-                "success"
-            );
-
-            await loadDashboard();
-        }
-
-    } catch (error) {
-
-        console.error(error);
-
-        setMessage(
-            signupMessage,
-            error.message || "Unable to create account.",
-            "error"
-        );
-
-    } finally {
-
-        signupBtn.disabled = false;
-        signupBtn.textContent = "Create Account";
-    }
 }
 
 
-// ==========================================
+// =====================================================
 // LOGIN
-// ==========================================
+// =====================================================
 
-async function login() {
+if (loginForm) {
 
-    const email = loginEmail.value.trim();
-    const password = loginPassword.value;
+    loginForm.addEventListener("submit", async function (event) {
 
-    if (!email || !password) {
+        event.preventDefault();
 
-        setMessage(
-            loginMessage,
-            "Enter your email and password.",
-            "error"
-        );
+        const email = loginEmail.value.trim();
+        const password = loginPassword.value;
 
-        return;
-    }
+        if (!email || !password) {
 
-    loginBtn.disabled = true;
-    loginBtn.textContent = "Signing in...";
+            loginMessage.textContent =
+                "Please enter your email and password.";
 
-    try {
-
-        const { error } =
-            await supabaseClient.auth.signInWithPassword({
-
-                email: email,
-
-                password: password
-
-            });
-
-        if (error) {
-            throw error;
+            return;
         }
 
-        loginEmail.value = "";
-        loginPassword.value = "";
+        loginBtn.disabled = true;
+        loginBtn.textContent = "Signing in...";
+        loginMessage.textContent = "";
 
-        await loadDashboard();
+        try {
 
-    } catch (error) {
+            const { data, error } =
+                await supabaseClient.auth.signInWithPassword({
 
-        console.error(error);
+                    email: email,
+                    password: password
 
-        setMessage(
-            loginMessage,
-            error.message || "Unable to sign in.",
-            "error"
-        );
+                });
 
-    } finally {
 
-        loginBtn.disabled = false;
-        loginBtn.textContent = "Sign In";
-    }
+            if (error) {
+                throw error;
+            }
+
+
+            if (data.session) {
+
+                showDashboard();
+
+                await loadDashboard();
+
+            }
+
+        } catch (error) {
+
+            console.error("Login error:", error);
+
+            loginMessage.textContent =
+                error.message || "Unable to sign in.";
+
+        } finally {
+
+            loginBtn.disabled = false;
+            loginBtn.textContent = "Sign In";
+
+        }
+
+    });
+
 }
 
 
-// ==========================================
+// =====================================================
 // LOAD DASHBOARD
-// ==========================================
+// =====================================================
 
 async function loadDashboard() {
-
-    const {
-        data: { user }
-    } = await supabaseClient.auth.getUser();
-
-    if (!user) {
-
-        showLogin();
-
-        return;
-    }
-
-    showDashboard();
-
-    await loadUserData(user);
-    await loadTransactions();
-}
-
-
-// ==========================================
-// LOAD USER DATA
-// ==========================================
-
-async function loadUserData(user) {
-
-    try {
-
-        const { data: profile, error: profileError } =
-            await supabaseClient
-                .from("profiles")
-                .select("full_name")
-                .eq("id", user.id)
-                .single();
-
-        if (profileError) {
-            throw profileError;
-        }
-
-        if (userName) {
-
-            userName.textContent =
-                profile.full_name || "My Bank User";
-        }
-
-
-        const { data: account, error: accountError } =
-            await supabaseClient
-                .from("bank_accounts")
-                .select("account_number, balance")
-                .eq("user_id", user.id)
-                .single();
-
-        if (accountError) {
-            throw accountError;
-        }
-
-        if (accountNumber) {
-
-            accountNumber.textContent =
-                account.account_number;
-        }
-
-        if (balance) {
-
-            balance.textContent =
-                formatMoney(account.balance);
-        }
-
-    } catch (error) {
-
-        console.error(
-            "Dashboard error:",
-            error
-        );
-    }
-}
-
-
-// ==========================================
-// LOAD TRANSACTIONS
-// ==========================================
-
-async function loadTransactions() {
-
-    if (!history) return;
-
-    history.innerHTML =
-        '<div class="empty-state">Loading transactions...</div>';
 
     try {
 
         const {
-            data: { user }
-        } = await supabaseClient.auth.getUser();
+            data: sessionData,
+            error: sessionError
+        } = await supabaseClient.auth.getSession();
 
-        if (!user) return;
+
+        if (sessionError) {
+            throw sessionError;
+        }
 
 
-        const { data: account, error: accountError } =
-            await supabaseClient
-                .from("bank_accounts")
-                .select("id")
-                .eq("user_id", user.id)
-                .single();
+        const session = sessionData.session;
+
+
+        if (!session) {
+
+            showAuth();
+
+            return;
+        }
+
+
+        const user = session.user;
+
+
+        // ---------------------------------------------
+        // PROFILE
+        // ---------------------------------------------
+
+        const {
+            data: profile,
+            error: profileError
+        } = await supabaseClient
+            .from("profiles")
+            .select("full_name")
+            .eq("id", user.id)
+            .maybeSingle();
+
+
+        if (profileError) {
+            console.error("Profile error:", profileError);
+        }
+
+
+        if (userName) {
+
+            userName.textContent =
+                profile?.full_name ||
+                user.user_metadata?.full_name ||
+                "User";
+
+        }
+
+
+        // ---------------------------------------------
+        // BANK ACCOUNT
+        // ---------------------------------------------
+
+        const {
+            data: account,
+            error: accountError
+        } = await supabaseClient
+            .from("bank_accounts")
+            .select("id, account_number, balance")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
 
         if (accountError) {
             throw accountError;
         }
 
 
-        const { data: transactions, error } =
-            await supabaseClient
-                .from("transactions")
-                .select(
-                    "id, type, amount, description, created_at"
-                )
-                .eq("account_id", account.id)
-                .order("created_at", {
-                    ascending: false
-                })
-                .limit(20);
+        if (account) {
+
+            if (accountNumber) {
+                accountNumber.textContent =
+                    account.account_number;
+            }
+
+            if (balance) {
+                balance.textContent =
+                    formatMoney(account.balance);
+            }
+
+            await loadTransactions(account.id);
+
+        } else {
+
+            if (accountNumber) {
+                accountNumber.textContent =
+                    "No account";
+            }
+
+            if (balance) {
+                balance.textContent =
+                    "₦0.00";
+            }
+
+            if (history) {
+                history.innerHTML =
+                    "<p>No transactions yet.</p>";
+            }
+
+        }
+
+    } catch (error) {
+
+        console.error("Dashboard error:", error);
+
+        if (history) {
+            history.innerHTML =
+                "<p>Unable to load account information.</p>";
+        }
+
+    }
+
+}
+
+
+// =====================================================
+// LOAD TRANSACTIONS
+// =====================================================
+
+async function loadTransactions(accountId) {
+
+    if (!history) {
+        return;
+    }
+
+
+    history.innerHTML =
+        "<p>Loading transactions...</p>";
+
+
+    try {
+
+        const {
+            data: transactions,
+            error
+        } = await supabaseClient
+            .from("transactions")
+            .select("*")
+            .eq("account_id", accountId)
+            .order("created_at", {
+                ascending: false
+            });
+
 
         if (error) {
             throw error;
@@ -434,7 +485,7 @@ async function loadTransactions() {
         if (!transactions || transactions.length === 0) {
 
             history.innerHTML =
-                '<div class="empty-state">No transactions yet.</div>';
+                "<p>No transactions yet.</p>";
 
             return;
         }
@@ -442,7 +493,8 @@ async function loadTransactions() {
 
         history.innerHTML = "";
 
-        transactions.forEach(transaction => {
+
+        transactions.forEach(function (transaction) {
 
             const item =
                 document.createElement("div");
@@ -450,223 +502,151 @@ async function loadTransactions() {
             item.className =
                 "transaction-item";
 
-            const sign =
-                transaction.type === "credit"
-                    ? "+"
-                    : "-";
+
+            const isCredit =
+                transaction.type === "credit";
+
 
             item.innerHTML = `
-                <div>
+
+                <div class="transaction-info">
+
                     <strong>
                         ${escapeHTML(
                             transaction.description ||
-                            "Transaction"
+                            (isCredit ? "Money received" : "Payment")
                         )}
                     </strong>
 
                     <small>
-                        ${formatDate(
-                            transaction.created_at
-                        )}
+                        ${formatDate(transaction.created_at)}
                     </small>
+
                 </div>
 
-                <strong class="${
-                    transaction.type === "credit"
-                        ? "credit"
-                        : "debit"
-                }">
-                    ${sign}${formatMoney(
-                        transaction.amount
-                    )}
-                </strong>
+                <div class="transaction-amount ${isCredit ? "credit" : "debit"}">
+
+                    ${isCredit ? "+" : "-"}
+                    ${formatMoney(transaction.amount)}
+
+                </div>
+
             `;
 
+
             history.appendChild(item);
+
         });
+
 
     } catch (error) {
 
-        console.error(
-            "Transaction error:",
-            error
-        );
+        console.error("Transaction error:", error);
 
         history.innerHTML =
-            '<div class="empty-state">Unable to load transactions.</div>';
+            "<p>Unable to load transaction history.</p>";
+
     }
+
 }
 
 
-// ==========================================
-// FORMAT MONEY
-// ==========================================
-
-function formatMoney(amount) {
-
-    return new Intl.NumberFormat(
-        "en-NG",
-        {
-            style: "currency",
-            currency: "NGN",
-            minimumFractionDigits: 2
-        }
-    ).format(Number(amount) || 0);
-}
-
-
-// ==========================================
-// FORMAT DATE
-// ==========================================
-
-function formatDate(date) {
-
-    return new Date(date).toLocaleString(
-        "en-NG",
-        {
-            dateStyle: "medium",
-            timeStyle: "short"
-        }
-    );
-}
-
-
-// ==========================================
-// SECURITY HELPER
-// ==========================================
-
-function escapeHTML(value) {
-
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-}
-
-
-// ==========================================
+// =====================================================
 // LOGOUT
-// ==========================================
+// =====================================================
 
-async function logout() {
+if (logoutBtn) {
 
-    const { error } =
-        await supabaseClient.auth.signOut();
+    logoutBtn.addEventListener("click", async function () {
 
-    if (error) {
+        logoutBtn.disabled = true;
 
-        alert(error.message);
+        try {
 
-        return;
-    }
+            const { error } =
+                await supabaseClient.auth.signOut();
 
-    showLogin();
+
+            if (error) {
+                throw error;
+            }
+
+
+            showAuth();
+
+            showLogin();
+
+        } catch (error) {
+
+            console.error("Logout error:", error);
+
+        } finally {
+
+            logoutBtn.disabled = false;
+
+        }
+
+    });
+
 }
 
 
-// ==========================================
-// BALANCE VISIBILITY
-// ==========================================
+// =====================================================
+// SHOW / HIDE BALANCE
+// =====================================================
 
 let balanceVisible = true;
+let realBalance = null;
+
 
 if (toggleBalanceBtn) {
 
     toggleBalanceBtn.addEventListener(
         "click",
-        () => {
+        function () {
 
-            if (!balance) return;
+            if (!balance) {
+                return;
+            }
 
-            balanceVisible = !balanceVisible;
 
             if (balanceVisible) {
 
-                balance.style.filter = "none";
+                realBalance =
+                    balance.textContent;
 
-                toggleBalanceBtn.textContent =
-                    "Hide";
+                balance.textContent =
+                    "₦ ••••••";
+
+                balanceVisible = false;
 
             } else {
 
-                balance.style.filter =
-                    "blur(8px)";
+                balance.textContent =
+                    realBalance || "₦0.00";
 
-                toggleBalanceBtn.textContent =
-                    "Show";
+                balanceVisible = true;
+
             }
+
         }
     );
+
 }
 
 
-// ==========================================
-// BUTTON EVENTS
-// ==========================================
-
-if (loginForm) {
-
-    loginForm.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-            login();
-        }
-    );
-}
-
-
-if (signupForm) {
-
-    signupForm.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-            createAccount();
-        }
-    );
-}
-
-
-if (showSignupBtn) {
-
-    showSignupBtn.addEventListener(
-        "click",
-        showSignup
-    );
-}
-
-
-if (showLoginBtn) {
-
-    showLoginBtn.addEventListener(
-        "click",
-        showLogin
-    );
-}
-
-
-if (logoutBtn) {
-
-    logoutBtn.addEventListener(
-        "click",
-        logout
-    );
-}
-
+// =====================================================
+// REFRESH
+// =====================================================
 
 if (refreshBtn) {
 
-    refreshBtn.addEventListener(
-        "click",
-        loadDashboard
-    );
+    refreshBtn.addEventListener("click", async function () {
+
+        await loadDashboard();
+
+    });
+
 }
 
 
@@ -674,64 +654,95 @@ if (refreshHistoryBtn) {
 
     refreshHistoryBtn.addEventListener(
         "click",
-        loadTransactions
-    );
-}
+        async function () {
 
-
-if (transferBtn) {
-
-    transferBtn.addEventListener(
-        "click",
-        () => {
-
-            alert(
-                "Transfer system will be connected after we build the secure transfer system."
-            );
+            await loadDashboard();
 
         }
     );
+
 }
 
 
-// ==========================================
+// =====================================================
+// TRANSFER
+// =====================================================
+
+if (transferBtn) {
+
+    transferBtn.addEventListener("click", function () {
+
+        alert(
+            "Transfer system will be connected after we build the secure transfer system."
+        );
+
+    });
+
+}
+
+
+// =====================================================
 // AUTH STATE
-// ==========================================
+// =====================================================
 
 supabaseClient.auth.onAuthStateChange(
-    async (event, session) => {
+    async function (event, session) {
 
         if (session) {
+
+            showDashboard();
 
             await loadDashboard();
 
         } else {
 
-            showLogin();
+            showAuth();
+
         }
+
     }
 );
 
 
-// ==========================================
-// START APP
-// ==========================================
+// =====================================================
+// INITIAL CHECK
+// =====================================================
 
 document.addEventListener(
     "DOMContentLoaded",
-    async () => {
+    async function () {
 
         const {
-            data: { session }
+            data,
+            error
         } = await supabaseClient.auth.getSession();
 
-        if (session) {
+
+        if (error) {
+
+            console.error(
+                "Session error:",
+                error
+            );
+
+            showAuth();
+
+            return;
+        }
+
+
+        if (data.session) {
+
+            showDashboard();
 
             await loadDashboard();
 
         } else {
 
+            showAuth();
+
             showLogin();
+
         }
 
     }
